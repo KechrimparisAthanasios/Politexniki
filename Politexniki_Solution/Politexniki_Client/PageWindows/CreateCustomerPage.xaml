@@ -1,0 +1,112 @@
+﻿<Page x:Class="Politexniki_Client.PageWindows.CreateCustomerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Politexniki_Client.PageWindows"
+      mc:Ignorable="d"
+      Title="CreateCustomerPage" ShowsNavigationUI="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+    <Grid>
+        <StackPanel Margin="10,0,0,0">
+            <Label FontSize="22" FontWeight="Bold" >
+                <TextBlock TextDecorations="Underline">Δημιουργεία Πελάτη</TextBlock>
+            </Label>
+        </StackPanel>
+        <StackPanel Margin="0,60,0,0" HorizontalAlignment="Center"  Orientation="Horizontal" Background="#FFC9DDDB">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,20,0">
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Ο-Η (όνομα)" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Επώνυμο" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Όνομα και επώνυμο πατέρα" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Όνομα και επώνυμο μητέρας" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Ημερομηνία γέννησης" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τόπος γέννησης" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τηλέφωνο" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Αριθ. δελτ. ταυτότητας" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τόπος κατοικίας" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Οδός" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Αριθμός" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τ.Κ." FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Α.Φ.Μ." FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Δ.Ο.Υ." FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtFirstName" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtLastName" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtFatherFullName" Text="{Binding FatherFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtMotherFullName" Text="{Binding MotherFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtBirthday" Text="{Binding Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtPlaceOfBirth" Text="{Binding PlaceOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtTelephone" Text="{Binding Telephone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtId" Text="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtResidensePlace" Text="{Binding ResidencePlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtAddress" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtNumber" Text="{Binding Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtPostCode" Text="{Binding PostCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtSocialNumber" Text="{Binding SocialNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox x:Name="txtTaxPlace" Text="{Binding TaxPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,-80" VerticalAlignment="Bottom">
+            <Button x:Name="btnSaveClient" Width="75" Height="50" Click="btnSaveClient_Click">
+                <Image Source="/Icons/ButtonsImages/StoreBtn.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

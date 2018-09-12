@@ -1,0 +1,113 @@
+﻿<Page x:Class="Politexniki_Client.PageWindows.CreateCivil"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Politexniki_Client.PageWindows"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="CreateCivil" ShowsNavigationUI="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+    <Grid>
+        <StackPanel  Margin="0,0,0,0">
+            <Label FontSize="22" FontWeight="Bold" >
+                <TextBlock TextDecorations="Underline">Δημιουργεία Μηχανικού</TextBlock>
+            </Label>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Margin="0,60,0,0" Orientation="Horizontal" Background="#FFC9DDDB">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Όνομα:" FontWeight="Bold" FontStyle="Italic" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Επώνυμο:" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Ειδικότητα:" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Αρ.Μητρώου ΤΕΕ :" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="ΑΦΜ:"  FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="ΔΟΥ:"  FontWeight="Bold" FontStyle="Italic" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τηλέφωνο:" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Αριθ. δελτ. ταυτότητας:" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Νομός :" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Δήμος :" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τόπος κατοικίας" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Οδός:" FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Αριθμός:"  FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <Label Height="25" Content="Τ.Κ." FontWeight="Bold" FontStyle="Italic"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="20,0,0,0">
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox  Name="nametxt" Text="{Binding CivilFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="lastNametxt" Text="{Binding CivilLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Text="{Binding Speciality, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="NumberTEEtxt" Text="{Binding NumberTEE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="AFMtxt" Text="{Binding CivilAFM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="DOYtxt" Text="{Binding CivilDOY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="teltxt" Text="{Binding CivilTele, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="idtxt" Text="{Binding CivilNumberID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="nomostxt" Text="{Binding Nomos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="munictxt" Text="{Binding CivilMunicipality, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="placetxt" Text="{Binding PlaceOfHouse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="addressCtxt" Text="{Binding CivilAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="numbertxt" Text="{Binding CivilNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10">
+                    <TextBox Name="posttxt" Text="{Binding CivilPostCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="0,0,0,-80" VerticalAlignment="Bottom">
+            <Button x:Name="createbtn" Width="75" Height="50" Click="createbtn_Click" Cursor="Hand">
+                <Image Source="/Icons/ButtonsImages/StoreBtn.png"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>
