@@ -70,11 +70,17 @@
     </ApplicationDefinition>
     <Compile Include="ModelView\CustomerModelView.cs" />
     <Compile Include="ModelView\MainWindowModel.cs" />
-    <Compile Include="Model\CivilEngineer.cs" />
-    <Compile Include="Model\Customer.cs" />
-    <Compile Include="Model\Project.cs" />
+    <Compile Include="ModelView\ProjectView.cs" />
+    <Compile Include="Model\CivilEngineers\CivilEngineer.cs" />
+    <Compile Include="Model\Customers\Customer.cs" />
+    <Compile Include="Model\Project\Project.cs" />
+    <Compile Include="Model\Project\ProjectOwner.cs" />
+    <Compile Include="Model\Project\ProjectPlace.cs" />
     <Compile Include="PageWindows\CreateCustomerPage.xaml.cs">
       <DependentUpon>CreateCustomerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageWindows\CreateProject.xaml.cs">
+      <DependentUpon>CreateProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageWindows\ShowCivil.xaml.cs">
       <DependentUpon>ShowCivil.xaml</DependentUpon>
@@ -104,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageWindows\CreateCustomerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageWindows\CreateProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,6 +180,9 @@
     <Resource Include="Icons\avatar.png" />
     <Resource Include="Icons\SettingsIcon.png" />
     <Resource Include="Icons\PDFExport.png" />
+    <Resource Include="Icons\BlackSeperator.png" />
+    <Resource Include="Icons\MinusIcon.png" />
+    <Resource Include="Icons\PlusIcon.png" />
     <Content Include="ResourceFiles\System.Data.SQLite.dll" />
   </ItemGroup>
   <ItemGroup>

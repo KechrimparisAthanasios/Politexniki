@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Politexniki_Client.Model;
+using Politexniki_Client.Model.Customers;
 
 namespace Politexniki_Client.ModelView
 {
@@ -157,24 +157,26 @@ namespace Politexniki_Client.ModelView
         {
             try
             {
-                customer = new Customer();
-                customer.CustomerID = CustomerID;
-                customer.FirstName = FirstName;
-                customer.LastName = LastName;
-                customer.FatherFullName = FatherFullName;
-                customer.MotherFullName = MotherFullName;
-                customer.Birthday = Birthday;
-                customer.PlaceOfBirth = PlaceOfBirth;
-                customer.Telephone = Telephone;
-                customer.Id = Id;
-                customer.ResidencePlace = ResidencePlace;
-                customer.Address = Address;
-                customer.Number = Number;
-                customer.PostCode = PostCode;
-                customer.SocialNumber = SocialNumber;
-                customer.TaxPlace = TaxPlace;
+                customer = new Customer
+                {
+                    CustomerID = CustomerID,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    FatherFullName = FatherFullName,
+                    MotherFullName = MotherFullName,
+                    Birthday = Birthday,
+                    PlaceOfBirth = PlaceOfBirth,
+                    Telephone = Telephone,
+                    Id = Id,
+                    ResidencePlace = ResidencePlace,
+                    Address = Address,
+                    Number = Number,
+                    PostCode = PostCode,
+                    SocialNumber = SocialNumber,
+                    TaxPlace = TaxPlace
+                };
 
-               _isCustomerStored =  SQLite.SQLiteHandling.Instance.StoreCustomer(customer);
+                _isCustomerStored =  SQLite.SQLiteHandling.Instance.StoreCustomer(customer);
                 if (!_isCustomerStored)
                 {
                     MainWindowModel.Instance.MessageStatus = "Δεν ήταν δυνατή η ολοκλήρωση αποθήκευσης. Δοκίμασε ξανά.";
@@ -290,7 +292,10 @@ namespace Politexniki_Client.ModelView
 
         public void ExportSelectedCustomerPDF(string customerId)
         {
-
+            _listOfCustomers = new ObservableCollection<CustomerModelView>();
+            _listOfCustomers = SQLite.SQLiteHandling.Instance.ReturnCustomerById(customerId);
+            PDFHandler.PdfHandling pDFHandler = new Politexniki_Client.PDFHandler.PdfHandling();
+            pDFHandler.ExportSelectedCustomerInPDF(_listOfCustomers);
         }
 
         #endregion
@@ -300,10 +305,7 @@ namespace Politexniki_Client.ModelView
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

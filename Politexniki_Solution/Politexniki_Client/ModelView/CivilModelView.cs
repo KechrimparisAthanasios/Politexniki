@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel.DataAnnotations;
+using Politexniki_Client.Model.CivilEngineers;
 
 namespace Politexniki_Client.ModelView
 {
@@ -163,7 +164,7 @@ namespace Politexniki_Client.ModelView
 
         #region Methods
 
-        Model.CivilEngineer civil;
+        CivilEngineer civil;
         private bool _isStored;
         /// <summary>
         /// Save in the Model and store to the SQLiteDB
@@ -171,7 +172,7 @@ namespace Politexniki_Client.ModelView
         /// <returns></returns>
         public bool SaveCivilEngineer()
         {
-            civil = new Model.CivilEngineer();
+            civil = new CivilEngineer();
             try
             {
                 civil.CivilFirstName = CivilFirstName;
@@ -307,7 +308,7 @@ namespace Politexniki_Client.ModelView
         /// <returns></returns>
         public bool UpdateCivilEngineer(int civilId)
         {
-            civil = new Model.CivilEngineer();
+            civil = new CivilEngineer();
             try
             {
                var newListOfCivil =  CivilEditObservable.Where(x => x.CivilId == civilId).ToList();
@@ -383,10 +384,7 @@ namespace Politexniki_Client.ModelView
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

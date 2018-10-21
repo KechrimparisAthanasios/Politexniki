@@ -47,12 +47,12 @@ namespace Politexniki_Client.PDFHandler
                 // First we write out the header information
 
                 // Start with the invoice type header
-                writeText(cb, "Λίστα Μηχανικών", 350, 800, f_cb, 14);
+                WriteText(cb, "Λίστα Μηχανικών", 350, 800, f_cb, 14);
                 // HEader details; invoice number, invoice date, due date and customer Id
-                writeText(cb, "Ποσότητα Μηχανικών", 350, 780, f_cb, 10);
-                writeText(cb, listCivilEngineer.Count.ToString(), 480, 780, f_cn, 10);
-                writeText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
-                writeText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
+                WriteText(cb, "Ποσότητα Μηχανικών", 350, 780, f_cb, 10);
+                WriteText(cb, listCivilEngineer.Count.ToString(), 480, 780, f_cn, 10);
+                WriteText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
+                WriteText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
                 cb.EndText();
 
                 // Delivery address details
@@ -78,10 +78,10 @@ namespace Politexniki_Client.PDFHandler
                 top_margin = 730;
                 left_margin = 40;
                 // Line headers
-                writeText(cb, "'Ονομα και Επίθετο", left_margin, top_margin, f_cb, 10);
-                writeText(cb, "Ειδικότητα", left_margin + 150, top_margin, f_cb, 10);
+                WriteText(cb, "'Ονομα και Επίθετο", left_margin, top_margin, f_cb, 10);
+                WriteText(cb, "Ειδικότητα", left_margin + 150, top_margin, f_cb, 10);
                 //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, "Qty", left_margin + 415, top_margin, 0);
-                writeText(cb, "Τηλέφωνο", left_margin + 320, top_margin, f_cb, 10);
+                WriteText(cb, "Τηλέφωνο", left_margin + 320, top_margin, f_cb, 10);
                 //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, "Price", left_margin + 495, top_margin, 0);
                 //writeText(cb, "Curr", left_margin + 500, top_margin, f_cb, 10);
 
@@ -92,10 +92,10 @@ namespace Politexniki_Client.PDFHandler
                 // Note that we use the -= operator, the coordinates goes from the bottom of the page!
                 foreach (ModelView.CivilModelView engineer in listCivilEngineer)
                 {
-                    writeText(cb, engineer.CivilFirstName + " " + engineer.CivilLastName, left_margin, top_margin, f_cn, 10);
-                    writeText(cb, engineer.Speciality, left_margin + 150, top_margin, f_cn, 10);
+                    WriteText(cb, engineer.CivilFirstName + " " + engineer.CivilLastName, left_margin, top_margin, f_cn, 10);
+                    WriteText(cb, engineer.Speciality, left_margin + 150, top_margin, f_cn, 10);
                     //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, drItem["invoicedQuantity"].ToString(), left_margin + 415, top_margin, 0);
-                    writeText(cb, engineer.CivilTele, left_margin + 320, top_margin, f_cn, 10);
+                    WriteText(cb, engineer.CivilTele, left_margin + 320, top_margin, f_cn, 10);
                     //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, drItem["price"].ToString(), left_margin + 495, top_margin, 0);
                     //writeText(cb, drItem["currency"].ToString(), left_margin + 500, top_margin, f_cn, 10);
 
@@ -174,12 +174,12 @@ namespace Politexniki_Client.PDFHandler
                 // First we write out the header information
 
                 // Start with the invoice type header
-                writeText(cb, "Λίστα Μηχανικών", 350, 800, f_cb, 14);
+                WriteText(cb, "Λίστα Μηχανικών", 350, 800, f_cb, 14);
                 // HEader details; invoice number, invoice date, due date and customer Id
-                writeText(cb, "Ποσότητα Μηχανικών", 350, 780, f_cb, 10);
-                writeText(cb, listCivilEngineer.Count.ToString(), 480, 780, f_cn, 10);
-                writeText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
-                writeText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
+                WriteText(cb, "Ποσότητα Μηχανικών", 350, 780, f_cb, 10);
+                WriteText(cb, listCivilEngineer.Count.ToString(), 480, 780, f_cn, 10);
+                WriteText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
+                WriteText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
                 cb.EndText();
 
                 // Delivery address details
@@ -205,21 +205,21 @@ namespace Politexniki_Client.PDFHandler
                 top_margin = 730;
                 left_margin = 190;
                 // Line headers
-                writeText(cb, "'Ονομα :", left_margin, top_margin, f_cb, 10);
-                writeText(cb, "Επίθετο :", left_margin, top_margin - 20, f_cb, 10);
-                writeText(cb, "Ειδικότητα :", left_margin , top_margin - 40, f_cb, 10);
-                writeText(cb, "Αρ. Μητρώου ΤΕΕ :", left_margin, top_margin - 60, f_cb, 10);
-                writeText(cb, "ΑΦΜ :", left_margin, top_margin - 80, f_cb, 10);
-                writeText(cb, "ΔΟΥ :", left_margin, top_margin - 100, f_cb, 10);
-                writeText(cb, "Τηλέφωνο :", left_margin, top_margin - 120, f_cb, 10);
-                writeText(cb, "Τηλέφωνο :", left_margin, top_margin - 140, f_cb, 10);
-                writeText(cb, "Αριθ. δελτ. ταυτότητας :", left_margin, top_margin - 160, f_cb, 10);
-                writeText(cb, "Νομός :", left_margin, top_margin - 180, f_cb, 10);
-                writeText(cb, "Δήμος :", left_margin, top_margin - 200, f_cb, 10);
-                writeText(cb, "Τόπος κατοικίας :", left_margin, top_margin - 220, f_cb, 10);
-                writeText(cb, "Οδός :", left_margin, top_margin - 240, f_cb, 10);
-                writeText(cb, "Αριθμός :", left_margin, top_margin - 260, f_cb, 10);
-                writeText(cb, "Τ.Κ. :", left_margin, top_margin - 280, f_cb, 10);
+                WriteText(cb, "'Ονομα :", left_margin, top_margin, f_cb, 10);
+                WriteText(cb, "Επίθετο :", left_margin, top_margin - 20, f_cb, 10);
+                WriteText(cb, "Ειδικότητα :", left_margin , top_margin - 40, f_cb, 10);
+                WriteText(cb, "Αρ. Μητρώου ΤΕΕ :", left_margin, top_margin - 60, f_cb, 10);
+                WriteText(cb, "ΑΦΜ :", left_margin, top_margin - 80, f_cb, 10);
+                WriteText(cb, "ΔΟΥ :", left_margin, top_margin - 100, f_cb, 10);
+                WriteText(cb, "Τηλέφωνο :", left_margin, top_margin - 120, f_cb, 10);
+                WriteText(cb, "Τηλέφωνο :", left_margin, top_margin - 140, f_cb, 10);
+                WriteText(cb, "Αριθ. δελτ. ταυτότητας :", left_margin, top_margin - 160, f_cb, 10);
+                WriteText(cb, "Νομός :", left_margin, top_margin - 180, f_cb, 10);
+                WriteText(cb, "Δήμος :", left_margin, top_margin - 200, f_cb, 10);
+                WriteText(cb, "Τόπος κατοικίας :", left_margin, top_margin - 220, f_cb, 10);
+                WriteText(cb, "Οδός :", left_margin, top_margin - 240, f_cb, 10);
+                WriteText(cb, "Αριθμός :", left_margin, top_margin - 260, f_cb, 10);
+                WriteText(cb, "Τ.Κ. :", left_margin, top_margin - 280, f_cb, 10);
 
                 // First item line position starts here
                 top_margin = 730;
@@ -228,21 +228,21 @@ namespace Politexniki_Client.PDFHandler
                 // Note that we use the -= operator, the coordinates goes from the bottom of the page!
                 foreach (ModelView.CivilModelView engineer in listCivilEngineer)
                 {
-                    writeText(cb, engineer.CivilFirstName , left_margin, top_margin, f_cn, 10);
-                    writeText(cb, engineer.CivilLastName, left_margin, top_margin - 20, f_cn, 10);
-                    writeText(cb, engineer.Speciality, left_margin, top_margin - 40, f_cn, 10);
-                    writeText(cb, engineer.CivilTele, left_margin, top_margin - 60, f_cn, 10);
-                    writeText(cb, engineer.NumberTEE, left_margin, top_margin - 80, f_cn, 10);
-                    writeText(cb, engineer.CivilAFM, left_margin, top_margin - 100, f_cn, 10);
-                    writeText(cb, engineer.CivilDOY, left_margin, top_margin - 120, f_cn, 10);
-                    writeText(cb, engineer.CivilTele, left_margin, top_margin - 140, f_cn, 10);
-                    writeText(cb, engineer.CivilNumberID, left_margin, top_margin - 160, f_cn, 10);
-                    writeText(cb, engineer.Nomos, left_margin, top_margin - 180, f_cn, 10);
-                    writeText(cb, engineer.CivilMunicipality, left_margin, top_margin - 200, f_cn, 10);
-                    writeText(cb, engineer.PlaceOfHouse, left_margin, top_margin - 220, f_cn, 10);
-                    writeText(cb, engineer.CivilAddress, left_margin, top_margin - 240, f_cn, 10);
-                    writeText(cb, engineer.CivilNumber, left_margin, top_margin - 260, f_cn, 10);
-                    writeText(cb, engineer.CivilPostCode, left_margin, top_margin - 280, f_cn, 10);
+                    WriteText(cb, engineer.CivilFirstName , left_margin, top_margin, f_cn, 10);
+                    WriteText(cb, engineer.CivilLastName, left_margin, top_margin - 20, f_cn, 10);
+                    WriteText(cb, engineer.Speciality, left_margin, top_margin - 40, f_cn, 10);
+                    WriteText(cb, engineer.CivilTele, left_margin, top_margin - 60, f_cn, 10);
+                    WriteText(cb, engineer.NumberTEE, left_margin, top_margin - 80, f_cn, 10);
+                    WriteText(cb, engineer.CivilAFM, left_margin, top_margin - 100, f_cn, 10);
+                    WriteText(cb, engineer.CivilDOY, left_margin, top_margin - 120, f_cn, 10);
+                    WriteText(cb, engineer.CivilTele, left_margin, top_margin - 140, f_cn, 10);
+                    WriteText(cb, engineer.CivilNumberID, left_margin, top_margin - 160, f_cn, 10);
+                    WriteText(cb, engineer.Nomos, left_margin, top_margin - 180, f_cn, 10);
+                    WriteText(cb, engineer.CivilMunicipality, left_margin, top_margin - 200, f_cn, 10);
+                    WriteText(cb, engineer.PlaceOfHouse, left_margin, top_margin - 220, f_cn, 10);
+                    WriteText(cb, engineer.CivilAddress, left_margin, top_margin - 240, f_cn, 10);
+                    WriteText(cb, engineer.CivilNumber, left_margin, top_margin - 260, f_cn, 10);
+                    WriteText(cb, engineer.CivilPostCode, left_margin, top_margin - 280, f_cn, 10);
 
 
 
@@ -289,7 +289,7 @@ namespace Politexniki_Client.PDFHandler
         {
             try
             {
-                System.IO.FileStream fs = new FileStream(@"C:\Politexniki\PDF Export\" + "Customers_1" + ".pdf", FileMode.Create);
+                System.IO.FileStream fs = new FileStream(@"C:\Politexniki\PDF Export\" + "Customers_" + DateTime.Now.Month + "_" + DateTime.Now.Year + ".pdf", FileMode.Create);
 
                 Document document = new Document(PageSize.A4, 25, 25, 30, 1);
                 PdfWriter writer = PdfWriter.GetInstance(document, fs);
@@ -315,12 +315,12 @@ namespace Politexniki_Client.PDFHandler
                 // First we write out the header information
 
                 // Start with the invoice type header
-                writeText(cb, "Λίστα Πελατών", 350, 800, f_cb, 14);
+                WriteText(cb, "Λίστα Πελατών", 350, 800, f_cb, 14);
                 // HEader details; invoice number, invoice date, due date and customer Id
-                writeText(cb, "Ποσότητα Πελατών", 350, 780, f_cb, 10);
-                writeText(cb, listCustomer.Count.ToString(), 480, 780, f_cn, 10);
-                writeText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
-                writeText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
+                WriteText(cb, "Ποσότητα Πελατών", 350, 780, f_cb, 10);
+                WriteText(cb, listCustomer.Count.ToString(), 480, 780, f_cn, 10);
+                WriteText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
+                WriteText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
                 cb.EndText();
 
                 // Delivery address details
@@ -346,10 +346,10 @@ namespace Politexniki_Client.PDFHandler
                 top_margin = 730;
                 left_margin = 40;
                 // Line headers
-                writeText(cb, "'Ονομα και Επίθετο", left_margin, top_margin, f_cb, 10);
-                writeText(cb, "Διεύθηνση", left_margin + 150, top_margin, f_cb, 10);
+                WriteText(cb, "'Ονομα και Επίθετο", left_margin, top_margin, f_cb, 10);
+                WriteText(cb, "Διεύθηνση", left_margin + 150, top_margin, f_cb, 10);
                 //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, "Qty", left_margin + 415, top_margin, 0);
-                writeText(cb, "Τηλέφωνο", left_margin + 320, top_margin, f_cb, 10);
+                WriteText(cb, "Τηλέφωνο", left_margin + 320, top_margin, f_cb, 10);
                 //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, "Price", left_margin + 495, top_margin, 0);
                 //writeText(cb, "Curr", left_margin + 500, top_margin, f_cb, 10);
 
@@ -360,10 +360,10 @@ namespace Politexniki_Client.PDFHandler
                 // Note that we use the -= operator, the coordinates goes from the bottom of the page!
                 foreach (ModelView.CustomerModelView customer in listCustomer)
                 {
-                    writeText(cb, customer.FirstName + " " + customer.LastName, left_margin, top_margin, f_cn, 10);
-                    writeText(cb, customer.Address, left_margin + 150, top_margin, f_cn, 10);
+                    WriteText(cb, customer.FirstName + " " + customer.LastName, left_margin, top_margin, f_cn, 10);
+                    WriteText(cb, customer.Address, left_margin + 150, top_margin, f_cn, 10);
                     //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, drItem["invoicedQuantity"].ToString(), left_margin + 415, top_margin, 0);
-                    writeText(cb, customer.Telephone, left_margin + 320, top_margin, f_cn, 10);
+                    WriteText(cb, customer.Telephone, left_margin + 320, top_margin, f_cn, 10);
                     //cb.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, drItem["price"].ToString(), left_margin + 495, top_margin, 0);
                     //writeText(cb, drItem["currency"].ToString(), left_margin + 500, top_margin, f_cn, 10);
 
@@ -412,11 +412,11 @@ namespace Politexniki_Client.PDFHandler
             return _messageStatus;
         }
 
-        public string ExportSelectedCustomerInPDF(ObservableCollection<ModelView.CivilModelView> listCivilEngineer)
+        public string ExportSelectedCustomerInPDF(ObservableCollection<ModelView.CustomerModelView> listCustomer)
         {
             try
             {
-                System.IO.FileStream fs = new FileStream(@"C:\Politexniki\PDF Export\" + listCivilEngineer[0].CivilFirstName.ToString().ToUpper() + " " + listCivilEngineer[0].CivilLastName.ToString().ToUpper() + ".pdf", FileMode.Create);
+                System.IO.FileStream fs = new FileStream(@"C:\Politexniki\PDF Export\" + listCustomer[0].FirstName.ToString().ToUpper() + " " + listCustomer[0].LastName.ToString().ToUpper() + ".pdf", FileMode.Create);
 
                 Document document = new Document(PageSize.A4, 25, 25, 30, 1);
                 PdfWriter writer = PdfWriter.GetInstance(document, fs);
@@ -442,12 +442,12 @@ namespace Politexniki_Client.PDFHandler
                 // First we write out the header information
 
                 // Start with the invoice type header
-                writeText(cb, "Λίστα Μηχανικών", 350, 800, f_cb, 14);
+                WriteText(cb, "Λίστα Πελατών", 350, 800, f_cb, 14);
                 // HEader details; invoice number, invoice date, due date and customer Id
-                writeText(cb, "Ποσότητα Μηχανικών", 350, 780, f_cb, 10);
-                writeText(cb, listCivilEngineer.Count.ToString(), 480, 780, f_cn, 10);
-                writeText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
-                writeText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
+                WriteText(cb, "Ποσότητα Πελατών", 350, 780, f_cb, 10);
+                WriteText(cb, listCustomer.Count.ToString(), 480, 780, f_cn, 10);
+                WriteText(cb, "Ημερομηνία", 350, 760, f_cb, 10);
+                WriteText(cb, DateTime.Now.ToShortDateString(), 480, 760, f_cn, 10);
                 cb.EndText();
 
                 // Delivery address details
@@ -473,46 +473,42 @@ namespace Politexniki_Client.PDFHandler
                 top_margin = 730;
                 left_margin = 190;
                 // Line headers
-                writeText(cb, "'Ονομα :", left_margin, top_margin, f_cb, 10);
-                writeText(cb, "Επίθετο :", left_margin, top_margin - 20, f_cb, 10);
-                writeText(cb, "Ειδικότητα :", left_margin, top_margin - 40, f_cb, 10);
-                writeText(cb, "Αρ. Μητρώου ΤΕΕ :", left_margin, top_margin - 60, f_cb, 10);
-                writeText(cb, "ΑΦΜ :", left_margin, top_margin - 80, f_cb, 10);
-                writeText(cb, "ΔΟΥ :", left_margin, top_margin - 100, f_cb, 10);
-                writeText(cb, "Τηλέφωνο :", left_margin, top_margin - 120, f_cb, 10);
-                writeText(cb, "Τηλέφωνο :", left_margin, top_margin - 140, f_cb, 10);
-                writeText(cb, "Αριθ. δελτ. ταυτότητας :", left_margin, top_margin - 160, f_cb, 10);
-                writeText(cb, "Νομός :", left_margin, top_margin - 180, f_cb, 10);
-                writeText(cb, "Δήμος :", left_margin, top_margin - 200, f_cb, 10);
-                writeText(cb, "Τόπος κατοικίας :", left_margin, top_margin - 220, f_cb, 10);
-                writeText(cb, "Οδός :", left_margin, top_margin - 240, f_cb, 10);
-                writeText(cb, "Αριθμός :", left_margin, top_margin - 260, f_cb, 10);
-                writeText(cb, "Τ.Κ. :", left_margin, top_margin - 280, f_cb, 10);
+                WriteText(cb, "'Ονομα :", left_margin, top_margin, f_cb, 10);
+                WriteText(cb, "Επώνυμο :", left_margin, top_margin - 20, f_cb, 10);
+                WriteText(cb, "Όνομα και επώνυμο πατέρα :", left_margin, top_margin - 40, f_cb, 10);
+                WriteText(cb, "Όνομα και επώνυμο μητέρας :", left_margin, top_margin - 60, f_cb, 10);
+                WriteText(cb, "Ημερομηνία γέννησης :", left_margin, top_margin - 80, f_cb, 10);
+                WriteText(cb, "Τόπος γέννησης :", left_margin, top_margin - 100, f_cb, 10);
+                WriteText(cb, "Τηλέφωνο :", left_margin, top_margin - 120, f_cb, 10);
+                WriteText(cb, "Αριθ. δελτ. ταυτότητας :", left_margin, top_margin - 140, f_cb, 10);
+                WriteText(cb, "Τόπος κατοικίας :", left_margin, top_margin - 160, f_cb, 10);
+                WriteText(cb, "Οδός :", left_margin, top_margin - 180, f_cb, 10);
+                WriteText(cb, "Αριθμός :", left_margin, top_margin - 200, f_cb, 10);
+                WriteText(cb, "Τ.Κ. :", left_margin, top_margin - 220, f_cb, 10);
+                WriteText(cb, "Α.Φ.Μ. :", left_margin, top_margin - 240, f_cb, 10);
+                WriteText(cb, "Δ.Ο.Υ. :", left_margin, top_margin - 260, f_cb, 10);
 
                 // First item line position starts here
                 top_margin = 730;
                 left_margin = 360;
                 // Loop thru the table of items and set the linespacing to 12 points.
                 // Note that we use the -= operator, the coordinates goes from the bottom of the page!
-                foreach (ModelView.CivilModelView engineer in listCivilEngineer)
+                foreach (ModelView.CustomerModelView customer in listCustomer)
                 {
-                    writeText(cb, engineer.CivilFirstName, left_margin, top_margin, f_cn, 10);
-                    writeText(cb, engineer.CivilLastName, left_margin, top_margin - 20, f_cn, 10);
-                    writeText(cb, engineer.Speciality, left_margin, top_margin - 40, f_cn, 10);
-                    writeText(cb, engineer.CivilTele, left_margin, top_margin - 60, f_cn, 10);
-                    writeText(cb, engineer.NumberTEE, left_margin, top_margin - 80, f_cn, 10);
-                    writeText(cb, engineer.CivilAFM, left_margin, top_margin - 100, f_cn, 10);
-                    writeText(cb, engineer.CivilDOY, left_margin, top_margin - 120, f_cn, 10);
-                    writeText(cb, engineer.CivilTele, left_margin, top_margin - 140, f_cn, 10);
-                    writeText(cb, engineer.CivilNumberID, left_margin, top_margin - 160, f_cn, 10);
-                    writeText(cb, engineer.Nomos, left_margin, top_margin - 180, f_cn, 10);
-                    writeText(cb, engineer.CivilMunicipality, left_margin, top_margin - 200, f_cn, 10);
-                    writeText(cb, engineer.PlaceOfHouse, left_margin, top_margin - 220, f_cn, 10);
-                    writeText(cb, engineer.CivilAddress, left_margin, top_margin - 240, f_cn, 10);
-                    writeText(cb, engineer.CivilNumber, left_margin, top_margin - 260, f_cn, 10);
-                    writeText(cb, engineer.CivilPostCode, left_margin, top_margin - 280, f_cn, 10);
-
-
+                    WriteText(cb, customer.FirstName, left_margin, top_margin, f_cn, 10);
+                    WriteText(cb, customer.LastName, left_margin, top_margin - 20, f_cn, 10);
+                    WriteText(cb, customer.FatherFullName, left_margin, top_margin - 40, f_cn, 10);
+                    WriteText(cb, customer.MotherFullName, left_margin, top_margin - 60, f_cn, 10);
+                    WriteText(cb, customer.Birthday, left_margin, top_margin - 80, f_cn, 10);
+                    WriteText(cb, customer.PlaceOfBirth, left_margin, top_margin - 100, f_cn, 10);
+                    WriteText(cb, customer.Telephone, left_margin, top_margin - 120, f_cn, 10);
+                    WriteText(cb, customer.Id, left_margin, top_margin - 140, f_cn, 10);
+                    WriteText(cb, customer.ResidencePlace, left_margin, top_margin - 160, f_cn, 10);
+                    WriteText(cb, customer.Address, left_margin, top_margin - 180, f_cn, 10);
+                    WriteText(cb, customer.Number.ToString(), left_margin, top_margin - 200, f_cn, 10);
+                    WriteText(cb, customer.PostCode, left_margin, top_margin - 220, f_cn, 10);
+                    WriteText(cb, customer.SocialNumber, left_margin, top_margin - 240, f_cn, 10);
+                    WriteText(cb, customer.TaxPlace, left_margin, top_margin - 260, f_cn, 10);
 
                     // This is the line spacing, if you change the font size, you might want to change this as well.
                     top_margin -= 12;
@@ -556,11 +552,11 @@ namespace Politexniki_Client.PDFHandler
         /// <summary>
         /// Properties in order to write the Greek letters
         /// </summary>
-        BaseFont f_cb = BaseFont.CreateFont("c:\\windows\\fonts\\calibrib.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        BaseFont f_cn = BaseFont.CreateFont("c:\\windows\\fonts\\calibri.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        readonly BaseFont f_cb = BaseFont.CreateFont("c:\\windows\\fonts\\calibrib.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        readonly BaseFont f_cn = BaseFont.CreateFont("c:\\windows\\fonts\\calibri.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
         // This is the method writing text to the content byte
-        private void writeText(PdfContentByte cb, string Text, int X, int Y, BaseFont font, int Size)
+        private void WriteText(PdfContentByte cb, string Text, int X, int Y, BaseFont font, int Size)
         {
             cb.SetFontAndSize(font, Size);
             cb.ShowTextAligned(PdfContentByte.ALIGN_LEFT, Text, X, Y, 0);

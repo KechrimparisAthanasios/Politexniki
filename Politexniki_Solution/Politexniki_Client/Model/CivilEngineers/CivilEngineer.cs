@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Politexniki_Client.Model
+namespace Politexniki_Client.Model.CivilEngineers
 {
     public class CivilEngineer
     {

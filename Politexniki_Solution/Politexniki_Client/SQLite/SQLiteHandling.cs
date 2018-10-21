@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Politexniki_Client.Model;
+using Politexniki_Client.Model.Customers;
+using Politexniki_Client.Model.CivilEngineers;
+using Politexniki_Client.Model.Project;
 
 namespace Politexniki_Client.SQLite
 {
@@ -30,10 +32,10 @@ namespace Politexniki_Client.SQLite
 
         #region Database Handling
 
-        private string _SQLiteCredential = @"C:\Politexniki\PolitexnikiDatabase\PolitexnikiDataBase.sqlite";
+        private readonly string _SQLiteCredential = @"C:\Politexniki\PolitexnikiDatabase\PolitexnikiDataBase.sqlite";
         private SQLiteConnection _sqliteConnection;
         private SQLiteCommand _sqliteCommand;
-        private string _lockSQLite = "";
+        private readonly string _lockSQLite = "";
 
         public void InitSQLite()
         {
@@ -135,7 +137,7 @@ namespace Politexniki_Client.SQLite
         /// </summary>
         /// <param name="civilEngineer"></param>
         /// <returns></returns>
-        public bool InsertCivilEngineer(Model.CivilEngineer civilEngineer)
+        public bool InsertCivilEngineer(CivilEngineer civilEngineer)
         {
             lock (_lockSQLite)
             {
@@ -204,7 +206,7 @@ namespace Politexniki_Client.SQLite
         /// </summary>
         /// <param name="civilEngineer"></param>
         /// <returns></returns>
-        public string UpdateCivil(Model.CivilEngineer civilEngineer)
+        public string UpdateCivil(CivilEngineer civilEngineer)
         {
             lock (_lockSQLite)
             {
@@ -302,11 +304,12 @@ namespace Politexniki_Client.SQLite
 
                     while (reader.Read())
                     {
-                        _civilEngineer = new ModelView.CivilModelView();
-
-                        _civilEngineer.CivilFirstName = reader["CivilFirstName"].ToString();
-                        _civilEngineer.CivilLastName = reader["CivilLastName"].ToString();
-                        _civilEngineer.CivilId = int.Parse(reader["CivilId"].ToString());
+                        _civilEngineer = new ModelView.CivilModelView
+                        {
+                            CivilFirstName = reader["CivilFirstName"].ToString(),
+                            CivilLastName = reader["CivilLastName"].ToString(),
+                            CivilId = int.Parse(reader["CivilId"].ToString())
+                        };
                         _listOfCivilEngineer.Add(_civilEngineer);
                     }
                 }
@@ -344,13 +347,14 @@ namespace Politexniki_Client.SQLite
 
                     while (reader.Read())
                     {
-                        _civilEngineer = new ModelView.CivilModelView();
-
-                        _civilEngineer.CivilFirstName = reader["CivilFirstName"].ToString();
-                        _civilEngineer.CivilLastName = reader["CivilLastName"].ToString();
-                        _civilEngineer.CivilId = int.Parse(reader["CivilId"].ToString());
-                        _civilEngineer.Speciality = reader["CivilSpeciality"].ToString();
-                        _civilEngineer.CivilTele = reader["CivilTele"].ToString();
+                        _civilEngineer = new ModelView.CivilModelView
+                        {
+                            CivilFirstName = reader["CivilFirstName"].ToString(),
+                            CivilLastName = reader["CivilLastName"].ToString(),
+                            CivilId = int.Parse(reader["CivilId"].ToString()),
+                            Speciality = reader["CivilSpeciality"].ToString(),
+                            CivilTele = reader["CivilTele"].ToString()
+                        };
                         _listOfCivilEngineer.Add(_civilEngineer);
                     }
                 }
@@ -391,22 +395,24 @@ namespace Politexniki_Client.SQLite
 
                     while (reader.Read())
                     {
-                        _onecivilEngineer = new ModelView.CivilModelView();
-                        _onecivilEngineer.CivilId = int.Parse(reader["CivilId"].ToString());
-                        _onecivilEngineer.CivilFirstName = reader["CivilFirstName"].ToString();
-                        _onecivilEngineer.CivilLastName = reader["CivilLastName"].ToString();
-                        _onecivilEngineer.Speciality = reader["CivilSpeciality"].ToString();
-                        _onecivilEngineer.NumberTEE = reader["NumberTEE"].ToString();
-                        _onecivilEngineer.CivilAFM = reader["CivilAFM"].ToString();
-                        _onecivilEngineer.CivilDOY = reader["CivilDOY"].ToString();
-                        _onecivilEngineer.CivilTele = reader["CivilTele"].ToString();
-                        _onecivilEngineer.CivilNumberID = reader["CivilNumberID"].ToString();
-                        _onecivilEngineer.Nomos = reader["Nomos"].ToString();
-                        _onecivilEngineer.CivilMunicipality = reader["CivilMunicipality"].ToString();
-                        _onecivilEngineer.PlaceOfHouse = reader["PlaceOfHouse"].ToString();
-                        _onecivilEngineer.CivilAddress = reader["CivilAddress"].ToString();
-                        _onecivilEngineer.CivilNumber = reader["CivilNumber"].ToString();
-                        _onecivilEngineer.CivilPostCode = reader["CivilPostCode"].ToString();
+                        _onecivilEngineer = new ModelView.CivilModelView
+                        {
+                            CivilId = int.Parse(reader["CivilId"].ToString()),
+                            CivilFirstName = reader["CivilFirstName"].ToString(),
+                            CivilLastName = reader["CivilLastName"].ToString(),
+                            Speciality = reader["CivilSpeciality"].ToString(),
+                            NumberTEE = reader["NumberTEE"].ToString(),
+                            CivilAFM = reader["CivilAFM"].ToString(),
+                            CivilDOY = reader["CivilDOY"].ToString(),
+                            CivilTele = reader["CivilTele"].ToString(),
+                            CivilNumberID = reader["CivilNumberID"].ToString(),
+                            Nomos = reader["Nomos"].ToString(),
+                            CivilMunicipality = reader["CivilMunicipality"].ToString(),
+                            PlaceOfHouse = reader["PlaceOfHouse"].ToString(),
+                            CivilAddress = reader["CivilAddress"].ToString(),
+                            CivilNumber = reader["CivilNumber"].ToString(),
+                            CivilPostCode = reader["CivilPostCode"].ToString()
+                        };
                         _listOfOneCivilEngineer.Add(_onecivilEngineer);
                     }
                 }
@@ -591,11 +597,12 @@ namespace Politexniki_Client.SQLite
 
                     while (reader.Read())
                     {
-                        _customerModelView = new ModelView.CustomerModelView();
-
-                        _customerModelView.FirstName = reader["FirstName"].ToString();
-                        _customerModelView.LastName = reader["LastName"].ToString();
-                        _customerModelView.CustomerID = reader["CustomerId"].ToString();
+                        _customerModelView = new ModelView.CustomerModelView
+                        {
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            CustomerID = reader["CustomerId"].ToString()
+                        };
                         _listOfCustomers.Add(_customerModelView);
                     }
                 }
@@ -669,22 +676,24 @@ namespace Politexniki_Client.SQLite
 
                     while (reader.Read())
                     {
-                        _oneCustomer = new ModelView.CustomerModelView();
-                        _oneCustomer.CustomerID = reader["CustomerId"].ToString();
-                        _oneCustomer.FirstName = reader["FirstName"].ToString();
-                        _oneCustomer.LastName = reader["LastName"].ToString();
-                        _oneCustomer.FatherFullName = reader["FatherFullName"].ToString();
-                        _oneCustomer.MotherFullName = reader["MotherFullName"].ToString();
-                        _oneCustomer.Birthday = reader["Birthday"].ToString();
-                        _oneCustomer.PlaceOfBirth = reader["PlaceOfBirth"].ToString();
-                        _oneCustomer.Telephone = reader["Telephone"].ToString();
-                        _oneCustomer.Id = reader["ID"].ToString();
-                        _oneCustomer.ResidencePlace = reader["ResidencePlace"].ToString();
-                        _oneCustomer.Address = reader["Address"].ToString();
-                        _oneCustomer.Number = int.Parse(reader["Number"].ToString());
-                        _oneCustomer.PostCode = reader["PostCode"].ToString();
-                        _oneCustomer.SocialNumber = reader["SocialNumber"].ToString();
-                        _oneCustomer.TaxPlace = reader["TaxPlace"].ToString();
+                        _oneCustomer = new ModelView.CustomerModelView
+                        {
+                            CustomerID = reader["CustomerId"].ToString(),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            FatherFullName = reader["FatherFullName"].ToString(),
+                            MotherFullName = reader["MotherFullName"].ToString(),
+                            Birthday = reader["Birthday"].ToString(),
+                            PlaceOfBirth = reader["PlaceOfBirth"].ToString(),
+                            Telephone = reader["Telephone"].ToString(),
+                            Id = reader["ID"].ToString(),
+                            ResidencePlace = reader["ResidencePlace"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            Number = int.Parse(reader["Number"].ToString()),
+                            PostCode = reader["PostCode"].ToString(),
+                            SocialNumber = reader["SocialNumber"].ToString(),
+                            TaxPlace = reader["TaxPlace"].ToString()
+                        };
                         _listOfOneCustomer.Add(_oneCustomer);
                     }
                 }
@@ -736,7 +745,7 @@ namespace Politexniki_Client.SQLite
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public string UpdateCustomer(Model.Customer customer)
+        public string UpdateCustomer(Customer customer)
         {
             lock (_lockSQLite)
             {
@@ -780,5 +789,87 @@ namespace Politexniki_Client.SQLite
         }
 
         #endregion
+
+        #region Handle Project
+
+        private readonly string _sqLiteCredentialProject = @"C:\Politexniki\PolitexnikiDatabase";
+
+        public bool CreateSqLiteDbProject(string projectName)
+        {
+            try
+            {
+                if (File.Exists(_sqLiteCredentialProject + @"\" + projectName + ".sqlite"))
+                {
+                    _isDbCreated = true;
+                }
+                else
+                {
+                    SQLiteConnection.CreateFile(_sqLiteCredentialProject + @"\" + projectName + ".sqlite");
+                    _isDbCreated = true;
+                }
+            }
+            catch (Exception e)
+            {
+                string exception = e.Message;
+            }
+
+            return _isDbCreated;
+        }
+
+        private bool _isProjectTableCreated;
+        private string _buildQuery;
+        public bool CreateProjectTable(Project project)
+        {
+            lock (_lockSQLite)
+            {
+                _sqliteConnection = new SQLiteConnection("Data Source=" + _sqLiteCredentialProject + @"\" + project.ProjectName + ".sqlite;Version=3;");
+                try
+                {
+                    _sqliteConnection.OpenAsync();
+                    _buildQuery = "Create Table if not exists ProjectTable(ProjectId VARCHAR(200),";
+                    for (int i = 0; i < project.ListOfProjectOwners.Count; i++)
+                    {
+                        foreach (ProjectOwner projectOwner in project.ListOfProjectOwners)
+                        {
+                            _buildQuery += "'" + nameof(projectOwner.FullName) + i + "'";
+                            _buildQuery += " " + "TEXT";
+                            _buildQuery += ",";
+                            _buildQuery += "'" + nameof(projectOwner.DOY) + i + "'";
+                            _buildQuery += " " + "TEXT";
+                            _buildQuery += ",";
+                            _buildQuery += "'" + nameof(projectOwner.SocialNumber) + i + "'";
+                            _buildQuery += " " + "TEXT";
+                            _buildQuery += ",";
+                            _buildQuery += "'" + nameof(projectOwner.Percantage) + i + "'";
+                            _buildQuery += " " + "TEXT";
+                            _buildQuery += ",";
+                            _buildQuery += "'" + nameof(projectOwner.AFM) + i + "'";
+                            _buildQuery += " " + "TEXT";
+                            if (project.ListOfProjectOwners.Count < i)
+                            {
+                                _buildQuery += ",";
+                            }
+                        }
+                    }
+
+                    _buildQuery += ");";
+                    _sqliteCommand = new SQLiteCommand(_buildQuery, _sqliteConnection);
+                    _sqliteCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    _isProjectTableCreated = false;
+                }
+                finally
+                {
+                    _sqliteConnection.Close();
+                }
+
+                return _isProjectTableCreated;
+            }
+        }
+
+        #endregion
+
     }
 }

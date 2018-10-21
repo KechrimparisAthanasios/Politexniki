@@ -37,7 +37,7 @@
           Name="Border"
           CornerRadius="10" 
           Padding="2"
-          Background="LightGray"
+          Background="White"
           BorderBrush="Black"
           BorderThickness="1" >
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>

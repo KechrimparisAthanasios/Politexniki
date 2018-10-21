@@ -149,7 +149,9 @@ namespace Politexniki_Client
 
         private void btnCreateProject_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindowModel.Instance.ClearContent();
+            MainWindowModel.Instance.HideLogo();
+            Main.Content = new PageWindows.CreateProject();
         }
 
         private void btnCreateProject_MouseEnter(object sender, MouseEventArgs e)

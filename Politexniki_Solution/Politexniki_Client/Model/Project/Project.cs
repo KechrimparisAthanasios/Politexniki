@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Politexniki_Client.Model
+namespace Politexniki_Client.Model.Project
 {
     public class Project
     {
@@ -12,13 +13,9 @@ namespace Politexniki_Client.Model
 
         public string ProjectName { get; set; }
 
-        public string City { get; set; }
+        public ProjectPlace ProjectPlace { get; set; }
 
-        public string Area { get; set; }
-
-        public string Address { get; set; }
-
-        public string OT { get; set; }
+        public ObservableCollection<ProjectOwner> ListOfProjectOwners { get; set; }
 
         #endregion
 
