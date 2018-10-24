@@ -164,7 +164,7 @@ namespace Politexniki_Client.ModelView
 
         #region Methods
 
-        CivilEngineer civil;
+        private CivilEngineer _civil;
         private bool _isStored;
         /// <summary>
         /// Save in the Model and store to the SQLiteDB
@@ -172,25 +172,25 @@ namespace Politexniki_Client.ModelView
         /// <returns></returns>
         public bool SaveCivilEngineer()
         {
-            civil = new CivilEngineer();
+            _civil = new CivilEngineer();
             try
             {
-                civil.CivilFirstName = CivilFirstName;
-                civil.CivilLastName = CivilLastName;
-                civil.Speciality = Speciality;
-                civil.NumberTEE = NumberTEE;
-                civil.CivilAFM = CivilAFM;
-                civil.CivilDOY = CivilDOY;
-                civil.CivilTele = CivilTele;
-                civil.CivilNumberID = CivilNumberID;
-                civil.Nomos = Nomos;
-                civil.CivilMunicipality = CivilMunicipality;
-                civil.PlaceOfHouse = PlaceOfHouse;
-                civil.CivilAddress = CivilAddress;
-                civil.CivilNumber = CivilNumber;
-                civil.CivilPostCode = CivilPostCode;
+                _civil.CivilFirstName = CivilFirstName;
+                _civil.CivilLastName = CivilLastName;
+                _civil.Speciality = Speciality;
+                _civil.NumberTEE = NumberTEE;
+                _civil.CivilAFM = CivilAFM;
+                _civil.CivilDOY = CivilDOY;
+                _civil.CivilTele = CivilTele;
+                _civil.CivilNumberID = CivilNumberID;
+                _civil.Nomos = Nomos;
+                _civil.CivilMunicipality = CivilMunicipality;
+                _civil.PlaceOfHouse = PlaceOfHouse;
+                _civil.CivilAddress = CivilAddress;
+                _civil.CivilNumber = CivilNumber;
+                _civil.CivilPostCode = CivilPostCode;
 
-               bool isStored = SQLite.SQLiteHandling.Instance.InsertCivilEngineer(civil);
+               bool isStored = SQLite.SqLiteHandling.Instance.InsertCivilEngineer(_civil);
                 if (isStored)
                 {
                     //ClearValues
@@ -217,6 +217,7 @@ namespace Politexniki_Client.ModelView
                 _isStored = false;
                 MainWindowModel.Instance.MessageStatus = e.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "SaveCivilEngineer", e.Message, DateTime.Now);
             }
             return _isStored;
         }
@@ -228,7 +229,7 @@ namespace Politexniki_Client.ModelView
         {
             try
             {
-                CivilObservable = SQLite.SQLiteHandling.Instance.ReturnCivilEngineer();
+                CivilObservable = SQLite.SqLiteHandling.Instance.ReturnCivilEngineer();
                 if (CivilObservable.Count == 0 )
                 {
                     NoContentCivil = Visibility.Visible;
@@ -241,24 +242,26 @@ namespace Politexniki_Client.ModelView
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "GetCivilEngineer", e.Message, DateTime.Now);
             }
         }
 
-        private ObservableCollection<CivilModelView> listOfCivil;
+        private ObservableCollection<CivilModelView> _listOfCivil;
         public void GetCivilById(int civilNumberId)
         {
             try
             {
-                listOfCivil = new ObservableCollection<CivilModelView>();
-                listOfCivil = SQLite.SQLiteHandling.Instance.ReturnCivilById(civilNumberId);
+                _listOfCivil = new ObservableCollection<CivilModelView>();
+                _listOfCivil = SQLite.SqLiteHandling.Instance.ReturnCivilById(civilNumberId);
                 //To display the selected Civil
-                CivilObservable = listOfCivil;
+                CivilObservable = _listOfCivil;
                 //To display the info of the selected civil
-                CivilEditObservable = listOfCivil;
+                CivilEditObservable = _listOfCivil;
             }
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "GetCivilById", e.Message, DateTime.Now);
             }
         }
 
@@ -270,35 +273,41 @@ namespace Politexniki_Client.ModelView
         {
             try
             {
-                listOfCivil = new ObservableCollection<CivilModelView>();
-                listOfCivil = SQLite.SQLiteHandling.Instance.ReturnCivilById(civilNumberId);
+                _listOfCivil = new ObservableCollection<CivilModelView>();
+                _listOfCivil = SQLite.SqLiteHandling.Instance.ReturnCivilById(civilNumberId);
                 //To display the selected Civil
-                CivilObservable = listOfCivil;
+                CivilObservable = _listOfCivil;
                 //To display the info of the selected civil
-                CivilViewObservable = listOfCivil;
+                CivilViewObservable = _listOfCivil;
             }
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "GetCivilViewById", e.Message, DateTime.Now);
             }
         }
 
+        /// <summary>
+        /// Delete the selected civil from the SQLite
+        /// </summary>
+        /// <param name="civilId"></param>
         public void DeleteCivil(string civilId)
         {
             try
             {
-                bool isClientDeleted = SQLite.SQLiteHandling.Instance.DeleteCivil(civilId);
+                bool isClientDeleted = SQLite.SqLiteHandling.Instance.DeleteCivil(civilId);
                 if (isClientDeleted)
                 {
-                    listOfCivil = new ObservableCollection<CivilModelView>();
-                    listOfCivil = SQLite.SQLiteHandling.Instance.ReturnCivilEngineer();
-                    CivilObservable = listOfCivil;
+                    _listOfCivil = new ObservableCollection<CivilModelView>();
+                    _listOfCivil = SQLite.SqLiteHandling.Instance.ReturnCivilEngineer();
+                    CivilObservable = _listOfCivil;
                     MainWindowModel.Instance.MessageStatus = "Ο μηχανικός διαγράφηκε.";
                 }
             }
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "DeleteCivil", e.Message, DateTime.Now);
             }
         }
 
@@ -308,28 +317,28 @@ namespace Politexniki_Client.ModelView
         /// <returns></returns>
         public bool UpdateCivilEngineer(int civilId)
         {
-            civil = new CivilEngineer();
+            _civil = new CivilEngineer();
             try
             {
                var newListOfCivil =  CivilEditObservable.Where(x => x.CivilId == civilId).ToList();
                 foreach (var item in newListOfCivil)
                 {
-                    civil.CivilId = civilId;
-                    civil.CivilFirstName = item.CivilFirstName;
-                    civil.CivilLastName = item.CivilLastName;
-                    civil.Speciality = item.Speciality;
-                    civil.NumberTEE = item.NumberTEE;
-                    civil.CivilAFM = item.CivilAFM;
-                    civil.CivilDOY = item.CivilDOY;
-                    civil.CivilTele = item.CivilTele;
-                    civil.CivilNumberID = item.CivilNumberID;
-                    civil.Nomos = item.Nomos;
-                    civil.CivilMunicipality = item.CivilMunicipality;
-                    civil.PlaceOfHouse = item.PlaceOfHouse;
-                    civil.CivilAddress = item.CivilAddress;
-                    civil.CivilNumber = item.CivilNumber;
-                    civil.CivilPostCode = item.CivilPostCode;
-                    MainWindowModel.Instance.MessageStatus = SQLite.SQLiteHandling.Instance.UpdateCivil(civil);
+                    _civil.CivilId = civilId;
+                    _civil.CivilFirstName = item.CivilFirstName;
+                    _civil.CivilLastName = item.CivilLastName;
+                    _civil.Speciality = item.Speciality;
+                    _civil.NumberTEE = item.NumberTEE;
+                    _civil.CivilAFM = item.CivilAFM;
+                    _civil.CivilDOY = item.CivilDOY;
+                    _civil.CivilTele = item.CivilTele;
+                    _civil.CivilNumberID = item.CivilNumberID;
+                    _civil.Nomos = item.Nomos;
+                    _civil.CivilMunicipality = item.CivilMunicipality;
+                    _civil.PlaceOfHouse = item.PlaceOfHouse;
+                    _civil.CivilAddress = item.CivilAddress;
+                    _civil.CivilNumber = item.CivilNumber;
+                    _civil.CivilPostCode = item.CivilPostCode;
+                    MainWindowModel.Instance.MessageStatus = SQLite.SqLiteHandling.Instance.UpdateCivil(_civil);
                 }
                 MainWindowModel.Instance.IsSuccessVisible = Visibility.Visible;
             }
@@ -338,42 +347,52 @@ namespace Politexniki_Client.ModelView
                 _isStored = false;
                 MainWindowModel.Instance.MessageStatus = e.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "UpdateCivilEngineer", e.Message, DateTime.Now);
             }
             return _isStored;
         }
 
-        public void ExportAllCivilsInPDF()
+        /// <summary>
+        /// Export all Civil engineers into a PDF FILE
+        /// </summary>
+        public void ExportAllCivilsInPdf()
         {
             PDFHandler.PdfHandling pdfHandling = new PDFHandler.PdfHandling();
             try
             {
-                CivilObservable = SQLite.SQLiteHandling.Instance.ReturnInfoOfAllCivilEngineer();
+                CivilObservable = SQLite.SqLiteHandling.Instance.ReturnInfoOfAllCivilEngineer();
 
                 MainWindowModel.Instance.IsSuccessVisible = Visibility.Visible;
-                MainWindowModel.Instance.MessageStatus = pdfHandling.ExportAllCivilsInPDF(CivilObservable);
+                MainWindowModel.Instance.MessageStatus = pdfHandling.ExportAllCivilsInPdf(CivilObservable);
             }
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "ExportAllCivilsInPdf", e.Message, DateTime.Now);
             }
         }
 
-        public void ExportSelectedCivilInfoInPDF(int civilNumberId)
+        /// <summary>
+        /// Export the selected Civil engineer into a PDF File
+        /// </summary>
+        /// <param name="civilNumberId"></param>
+        public void ExportSelectedCivilInfoInPdf(int civilNumberId)
         {
             PDFHandler.PdfHandling pdfHandling = new PDFHandler.PdfHandling();
             try
             {
-                listOfCivil = new ObservableCollection<CivilModelView>();
-                listOfCivil = SQLite.SQLiteHandling.Instance.ReturnCivilById(civilNumberId);
+                _listOfCivil = new ObservableCollection<CivilModelView>();
+                _listOfCivil = SQLite.SqLiteHandling.Instance.ReturnCivilById(civilNumberId);
 
                 MainWindowModel.Instance.IsSuccessVisible = Visibility.Visible;
-                MainWindowModel.Instance.MessageStatus = pdfHandling.ExportSelectedCivilInPDF(listOfCivil);
+                MainWindowModel.Instance.MessageStatus = pdfHandling.ExportSelectedCivilInPdf(_listOfCivil);
             }
             catch (Exception e)
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CivilModelView", "ExportSelectedCivilInfoInPdf", e.Message, DateTime.Now);
             }
         }
 

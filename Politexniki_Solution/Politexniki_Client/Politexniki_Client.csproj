@@ -68,6 +68,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Log Handler\Log.cs" />
+    <Compile Include="Log Handler\LogHandling.cs" />
     <Compile Include="ModelView\CustomerModelView.cs" />
     <Compile Include="ModelView\MainWindowModel.cs" />
     <Compile Include="ModelView\ProjectView.cs" />

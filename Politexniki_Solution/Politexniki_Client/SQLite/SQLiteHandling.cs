@@ -6,21 +6,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Politexniki_Client.Log_Handler;
 using Politexniki_Client.Model.Customers;
 using Politexniki_Client.Model.CivilEngineers;
 using Politexniki_Client.Model.Project;
 
 namespace Politexniki_Client.SQLite
 {
-    public class SQLiteHandling
+    public class SqLiteHandling
     {
         #region Singleton
-        private static readonly SQLiteHandling instance = new SQLiteHandling();
-        static SQLiteHandling(){}
+        private static readonly SqLiteHandling instance = new SqLiteHandling();
+        static SqLiteHandling(){}
 
-        private SQLiteHandling(){}
+        private SqLiteHandling(){}
 
-        public static SQLiteHandling Instance
+        public static SqLiteHandling Instance
         {
             get
             {
@@ -37,12 +38,13 @@ namespace Politexniki_Client.SQLite
         private SQLiteCommand _sqliteCommand;
         private readonly string _lockSQLite = "";
 
-        public void InitSQLite()
+        public void InitSqLite()
         {
             CreateDirectory();
-            CreateSQLiteDb();
+            CreateSqLiteDb();
             CreateCivilTable();
             CreateCustomerTable();
+            CreateLogTable();
         }
 
         public void CreateDirectory()
@@ -61,7 +63,7 @@ namespace Politexniki_Client.SQLite
         }
 
         private bool _isDbCreated;
-        public bool CreateSQLiteDb()
+        public bool CreateSqLiteDb()
         {
             try
             {
@@ -271,7 +273,7 @@ namespace Politexniki_Client.SQLite
 
                     _sqliteConnection.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _sqliteConnection.Close();
                     //We send the exception as -1
@@ -313,7 +315,7 @@ namespace Politexniki_Client.SQLite
                         _listOfCivilEngineer.Add(_civilEngineer);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _listOfCivilEngineer = new ObservableCollection<ModelView.CivilModelView>();
                 }
@@ -358,7 +360,7 @@ namespace Politexniki_Client.SQLite
                         _listOfCivilEngineer.Add(_civilEngineer);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _listOfCivilEngineer = new ObservableCollection<ModelView.CivilModelView>();
                 }
@@ -416,7 +418,7 @@ namespace Politexniki_Client.SQLite
                         _listOfOneCivilEngineer.Add(_onecivilEngineer);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _listOfOneCivilEngineer = new ObservableCollection<ModelView.CivilModelView>();
                 }
@@ -447,7 +449,7 @@ namespace Politexniki_Client.SQLite
                     _sqliteCommand.ExecuteNonQuery();
                     _isCivilDeleted = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _isCivilDeleted = false;
                 }
@@ -642,7 +644,7 @@ namespace Politexniki_Client.SQLite
 
                     _sqliteConnection.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _sqliteConnection.Close();
                     //We send the exception as -1
@@ -697,7 +699,7 @@ namespace Politexniki_Client.SQLite
                         _listOfOneCustomer.Add(_oneCustomer);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _listOfOneCustomer = new ObservableCollection<ModelView.CustomerModelView>();
                 }
@@ -856,7 +858,7 @@ namespace Politexniki_Client.SQLite
                     _sqliteCommand = new SQLiteCommand(_buildQuery, _sqliteConnection);
                     _sqliteCommand.ExecuteNonQuery();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     _isProjectTableCreated = false;
                 }
@@ -866,6 +868,116 @@ namespace Politexniki_Client.SQLite
                 }
 
                 return _isProjectTableCreated;
+            }
+        }
+
+        #endregion
+
+        #region Log Handling
+
+        public void CreateLogTable()
+        {
+            lock (_lockSQLite)
+            {
+                _sqliteConnection = new SQLiteConnection("Data Source=" + _SQLiteCredential + ";Version=3;");
+                try
+                {
+                    _sqliteConnection.OpenAsync();
+                    string createLogTableQuery =
+                        "Create Table if not exists LogTable " +
+                        "(LogId INT, " +
+                        "LogClass VARCHAR(20000), " +
+                        "LogMethod NVARCHAR(20000), " +
+                        "LogMessage NVARCHAR(20000)," +
+                        "LogDate NVARCHAR(20000))";
+                    _sqliteCommand = new SQLiteCommand(createLogTableQuery, _sqliteConnection);
+                    _sqliteCommand.ExecuteNonQuery();
+                    _sqliteConnection.Close();
+                }
+                catch (Exception e)
+                {
+                    string _messageStatus = e.Message;
+                }
+                finally
+                {
+                    _sqliteConnection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Insert the log message in the Sqlite
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        public void StoreLog(Log log)
+        {
+            lock (_lockSQLite)
+            {
+                try
+                {
+                    int logId = GetLastLogId();
+                    int newlogId = logId + 1;
+
+                    _sqliteConnection = new SQLiteConnection("Data Source=" + _SQLiteCredential + ";Version=3;");
+                    _sqliteConnection.OpenAsync();
+
+                    string insertLogData = "Insert into  LogTable(" +
+                        "LogId," +
+                        "LogClass," +
+                        "LogMethod," +
+                        "LogMessage," +
+                        "LogDate)" +
+                        "values('" +
+                        newlogId + "','" +
+                        log.LogClass + "','" +
+                        log.LogMethod + "','" +
+                        log.LogMessage + "','" +
+                        log.LogTime + "')";
+
+                    _sqliteCommand = new SQLiteCommand(insertLogData, _sqliteConnection);
+                    _sqliteCommand.ExecuteNonQuery();
+                }
+                catch (Exception exce)
+                {
+                    string _messageStatus = "SQLiteError: " + exce.Message;
+                }
+                finally
+                {
+                    _sqliteConnection.Close();
+                }
+            }
+        }
+
+        private int _logId;
+        /// <summary>
+        /// Get the last id of the Log in order to add the next id in the new Log
+        /// </summary>
+        /// <returns></returns>
+        public int GetLastLogId()
+        {
+            lock (_lockSQLite)
+            {
+                try
+                {
+                    _sqliteConnection = new SQLiteConnection("Data Source=" + _SQLiteCredential + ";Version=3;");
+
+                    _sqliteConnection.OpenAsync();
+
+                    string countQuery = "SELECT RowID FROM LogTable ORDER BY RowID Desc LIMIT 1;";
+                    SQLiteCommand command = new SQLiteCommand(countQuery, _sqliteConnection);
+
+                    _logId = Convert.ToInt32(command.ExecuteScalar());
+
+                    _sqliteConnection.Close();
+                }
+                catch (Exception)
+                {
+                    _sqliteConnection.Close();
+                    //We send the exception as -1
+                    _logId = -1;
+                }
+                return _logId;
             }
         }
 

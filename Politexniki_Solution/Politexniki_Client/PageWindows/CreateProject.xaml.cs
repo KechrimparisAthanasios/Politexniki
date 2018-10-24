@@ -21,7 +21,7 @@ namespace Politexniki_Client.PageWindows
     /// </summary>
     public partial class CreateProject : Page
     {
-        ModelView.ProjectView _projectModelView;
+        readonly ModelView.ProjectView _projectModelView;
         public CreateProject()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Politexniki_Client.PageWindows
             try
             {
                 Model.Project.ProjectOwner projectOwner = new Model.Project.ProjectOwner();
-                for (int i = 0; i < ElementNumber; i++)
+                for (int i = 0; i < _elementNumber; i++)
                 {
                     projectOwner.FullName = OwnerFullNameTextBox[i].Text;
                     projectOwner.DOY = OwnerDOYTextBox[i].Text;
@@ -52,6 +52,7 @@ namespace Politexniki_Client.PageWindows
             {
                 MainWindowModel.Instance.MessageStatus = w.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CreateProject","saveBtn",w.Message,DateTime.Now);
             }
 
         }
@@ -67,14 +68,14 @@ namespace Politexniki_Client.PageWindows
         {
             try
             {
-                ownerInfoPanel.Children.Remove(StackPanelowner[ElementNumber - 1]);
-                if (ElementNumber == 0)
+                ownerInfoPanel.Children.Remove(_stackPanelowner[_elementNumber - 1]);
+                if (_elementNumber == 0)
                 {
-                    ElementNumber = 0;
+                    _elementNumber = 0;
                 }
                 else
                 {
-                    ElementNumber = ElementNumber - 1;
+                    _elementNumber = _elementNumber - 1;
                 }
             }
             catch (Exception ex)
@@ -84,10 +85,10 @@ namespace Politexniki_Client.PageWindows
             }
         }
 
-        private int ElementNumber = 0;
-        StackPanel[] StackPanelowner = new StackPanel[1000];
-        StackPanel StackPanellbl;
-        StackPanel StackPanelstxt;
+        private int _elementNumber = 0;
+        private readonly StackPanel[] _stackPanelowner = new StackPanel[1000];
+        StackPanel _stackPanellbl;
+        StackPanel _stackPanelstxt;
 
         Label[] lblFullName = new Label[1000];
         Label[] lblAFM = new Label[1000];
@@ -106,40 +107,40 @@ namespace Politexniki_Client.PageWindows
         {
             try
             {
-                StackPanelowner[ElementNumber] = new StackPanel();
-                StackPanelowner[ElementNumber].Orientation = Orientation.Horizontal;
+                _stackPanelowner[_elementNumber] = new StackPanel();
+                _stackPanelowner[_elementNumber].Orientation = Orientation.Horizontal;
 
-                StackPanellbl = new StackPanel();
-                StackPanelstxt = new StackPanel();
-                lblFullName[ElementNumber] = new Label
+                _stackPanellbl = new StackPanel();
+                _stackPanelstxt = new StackPanel();
+                lblFullName[_elementNumber] = new Label
                 {
                     Content = "Ονοματεπώνυμο",
                     Height = 25,
                     FontWeight = FontWeights.Bold
                 };
 
-                lblAFM[ElementNumber] = new Label
+                lblAFM[_elementNumber] = new Label
                 {
                     Content = "ΑΦΜ",
                     Height = 25,
                     FontWeight = FontWeights.Bold
                 };
 
-                lblADT[ElementNumber] = new Label
+                lblADT[_elementNumber] = new Label
                 {
                     Content = "Α.Δ.Τ",
                     Height = 25,
                     FontWeight = FontWeights.Bold
                 };
 
-                lblDOY[ElementNumber] = new Label
+                lblDOY[_elementNumber] = new Label
                 {
                     Content = "Δ.Ο.Υ",
                     Height = 25,
                     FontWeight = FontWeights.Bold
                 };
 
-                lblPercentage[ElementNumber] = new Label
+                lblPercentage[_elementNumber] = new Label
                 {
                     Content = "Έιδος και ποσοστό",
                     Height = 25,
@@ -148,31 +149,31 @@ namespace Politexniki_Client.PageWindows
 
 
 
-                OwnerFullNameTextBox[ElementNumber] = new TextBox
+                OwnerFullNameTextBox[_elementNumber] = new TextBox
                 {
-                    Name = "FullNametxt" + ElementNumber
+                    Name = "FullNametxt" + _elementNumber
                     //Binding myBinding = new Binding("OwnerFullName");
                     //textBox.SetBinding(TextBox.TextProperty, myBinding);
                 };
                 Label lbl = new Label();
-                OwnerAFMTextBox[ElementNumber] = new TextBox
+                OwnerAFMTextBox[_elementNumber] = new TextBox
                 {
-                    Name = "AFMtxt" + ElementNumber
+                    Name = "AFMtxt" + _elementNumber
                 };
                 Label lbl1 = new Label();
-                OwnerADTTextBox[ElementNumber] = new TextBox
+                OwnerADTTextBox[_elementNumber] = new TextBox
                 {
-                    Name = "ADTtxt" + ElementNumber
+                    Name = "ADTtxt" + _elementNumber
                 };
                 Label lbl2 = new Label();
-                OwnerDOYTextBox[ElementNumber] = new TextBox
+                OwnerDOYTextBox[_elementNumber] = new TextBox
                 {
-                    Name = "DOYtxt" + ElementNumber
+                    Name = "DOYtxt" + _elementNumber
                 };
                 Label lbl3 = new Label();
-                OwnerPercentageTextBox[ElementNumber] = new TextBox
+                OwnerPercentageTextBox[_elementNumber] = new TextBox
                 {
-                    Name = "Percentagetxt" + ElementNumber
+                    Name = "Percentagetxt" + _elementNumber
                 };
                 Label lbl4 = new Label();
 
@@ -180,33 +181,33 @@ namespace Politexniki_Client.PageWindows
                 Label lbl6 = new Label();
                 Label lbl7 = new Label();
                 Label lbl8 = new Label();
-                StackPanellbl.Children.Add(lblFullName[ElementNumber]);
-                StackPanellbl.Children.Add(lbl5);
-                StackPanellbl.Children.Add(lblAFM[ElementNumber]);
-                StackPanellbl.Children.Add(lbl6);
-                StackPanellbl.Children.Add(lblADT[ElementNumber]);
-                StackPanellbl.Children.Add(lbl7);
-                StackPanellbl.Children.Add(lblDOY[ElementNumber]);
-                StackPanellbl.Children.Add(lbl8);
-                StackPanellbl.Children.Add(lblPercentage[ElementNumber]);
+                _stackPanellbl.Children.Add(lblFullName[_elementNumber]);
+                _stackPanellbl.Children.Add(lbl5);
+                _stackPanellbl.Children.Add(lblAFM[_elementNumber]);
+                _stackPanellbl.Children.Add(lbl6);
+                _stackPanellbl.Children.Add(lblADT[_elementNumber]);
+                _stackPanellbl.Children.Add(lbl7);
+                _stackPanellbl.Children.Add(lblDOY[_elementNumber]);
+                _stackPanellbl.Children.Add(lbl8);
+                _stackPanellbl.Children.Add(lblPercentage[_elementNumber]);
 
-                StackPanelstxt.Children.Add(OwnerFullNameTextBox[ElementNumber]);
-                StackPanelstxt.Children.Add(lbl);
-                StackPanelstxt.Children.Add(OwnerAFMTextBox[ElementNumber]);
-                StackPanelstxt.Children.Add(lbl1);
-                StackPanelstxt.Children.Add(OwnerADTTextBox[ElementNumber]);
-                StackPanelstxt.Children.Add(lbl2);
-                StackPanelstxt.Children.Add(OwnerDOYTextBox[ElementNumber]);
-                StackPanelstxt.Children.Add(lbl3);
-                StackPanelstxt.Children.Add(OwnerPercentageTextBox[ElementNumber]);
-                StackPanelstxt.Children.Add(lbl4);
+                _stackPanelstxt.Children.Add(OwnerFullNameTextBox[_elementNumber]);
+                _stackPanelstxt.Children.Add(lbl);
+                _stackPanelstxt.Children.Add(OwnerAFMTextBox[_elementNumber]);
+                _stackPanelstxt.Children.Add(lbl1);
+                _stackPanelstxt.Children.Add(OwnerADTTextBox[_elementNumber]);
+                _stackPanelstxt.Children.Add(lbl2);
+                _stackPanelstxt.Children.Add(OwnerDOYTextBox[_elementNumber]);
+                _stackPanelstxt.Children.Add(lbl3);
+                _stackPanelstxt.Children.Add(OwnerPercentageTextBox[_elementNumber]);
+                _stackPanelstxt.Children.Add(lbl4);
 
-                StackPanelowner[ElementNumber].Children.Add(StackPanellbl);
-                StackPanelowner[ElementNumber].Children.Add(StackPanelstxt);
+                _stackPanelowner[_elementNumber].Children.Add(_stackPanellbl);
+                _stackPanelowner[_elementNumber].Children.Add(_stackPanelstxt);
 
-                ownerInfoPanel.Children.Add(StackPanelowner[ElementNumber]);
+                ownerInfoPanel.Children.Add(_stackPanelowner[_elementNumber]);
 
-                ElementNumber++;
+                _elementNumber++;
             }
             catch (Exception ex)
             {

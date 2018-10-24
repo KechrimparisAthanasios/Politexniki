@@ -96,7 +96,7 @@ namespace Politexniki_Client.PageWindows
 
         private void pdfExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            _civilModelView.ExportAllCivilsInPDF();
+            _civilModelView.ExportAllCivilsInPdf();
         }
 
         private void civilPdfExportbtn_Click(object sender, RoutedEventArgs e)
@@ -104,7 +104,7 @@ namespace Politexniki_Client.PageWindows
             var civilEnginnerButtonId = ((Button)sender);
             var civilId = civilEnginnerButtonId.Tag;
 
-            _civilModelView.ExportSelectedCivilInfoInPDF(int.Parse(civilId.ToString()));
+            _civilModelView.ExportSelectedCivilInfoInPdf(int.Parse(civilId.ToString()));
         }
     }
 }

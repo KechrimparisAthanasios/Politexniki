@@ -21,7 +21,7 @@ namespace Politexniki_Client.PageWindows
     /// </summary>
     public partial class ShowCustomer : Page
     {
-        ModelView.CustomerModelView _customerModelView;
+        readonly ModelView.CustomerModelView _customerModelView;
         public ShowCustomer()
         {
             InitializeComponent();
@@ -46,6 +46,7 @@ namespace Politexniki_Client.PageWindows
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exce.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer","DeleteBtn_Click",exce.Message,DateTime.Now);
             }
         }
 
@@ -63,6 +64,7 @@ namespace Politexniki_Client.PageWindows
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exception.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer", "editBtn_Click", exception.Message, DateTime.Now);
             }
         }
 
@@ -80,6 +82,7 @@ namespace Politexniki_Client.PageWindows
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exception.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer", "viewBtnBtn_Click", exception.Message, DateTime.Now);
             }
         }
 
@@ -95,6 +98,7 @@ namespace Politexniki_Client.PageWindows
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exception.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer", "btnEditClient_Click", exception.Message, DateTime.Now);
             }
         }
 
@@ -102,12 +106,13 @@ namespace Politexniki_Client.PageWindows
         {
             try
             {
-                _customerModelView.ExportAllCustomersPDF();
+                _customerModelView.ExportAllCustomersPdf();
             }
             catch (Exception exception)
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exception.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer", "exportCustomerPDF_Click", exception.Message, DateTime.Now);
             }
         }
 
@@ -117,12 +122,13 @@ namespace Politexniki_Client.PageWindows
             {
                 var selectedCustomer = ((Button)sender);
                 var customerId = selectedCustomer.Tag;
-                _customerModelView.ExportSelectedCustomerPDF(customerId.ToString());
+                _customerModelView.ExportSelectedCustomerPdf(customerId.ToString());
             }
             catch (Exception exception)
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = exception.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("ShowCustomer", "exportSelectedCustomerPDFbtn_Click", exception.Message, DateTime.Now);
             }
         }
     }

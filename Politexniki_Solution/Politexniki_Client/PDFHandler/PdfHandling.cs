@@ -17,7 +17,7 @@ namespace Politexniki_Client.PDFHandler
 
         #region Handling Civil Engineer
 
-        public string ExportAllCivilsInPDF(ObservableCollection<ModelView.CivilModelView> listCivilEngineer)
+        public string ExportAllCivilsInPdf(ObservableCollection<ModelView.CivilModelView> listCivilEngineer)
         {
             try
             {
@@ -139,12 +139,13 @@ namespace Politexniki_Client.PDFHandler
             catch (Exception e)
             {
                 _messageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("PdfHandling", "ExportAllCivilsInPdf", e.Message, DateTime.Now);
             }
 
             return _messageStatus;
         }
 
-        public string ExportSelectedCivilInPDF(ObservableCollection<ModelView.CivilModelView> listCivilEngineer)
+        public string ExportSelectedCivilInPdf(ObservableCollection<ModelView.CivilModelView> listCivilEngineer)
         {
             try
             {
@@ -276,6 +277,7 @@ namespace Politexniki_Client.PDFHandler
             catch (Exception e)
             {
                 _messageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("PdfHandling", "ExportSelectedCivilInPdf", e.Message, DateTime.Now);
             }
 
             return _messageStatus;
@@ -285,7 +287,7 @@ namespace Politexniki_Client.PDFHandler
 
         #region Customer Pdf
 
-        public string ExportAllCustomersInPDF(ObservableCollection<ModelView.CustomerModelView> listCustomer)
+        public string ExportAllCustomersInPdf(ObservableCollection<ModelView.CustomerModelView> listCustomer)
         {
             try
             {
@@ -385,14 +387,6 @@ namespace Politexniki_Client.PDFHandler
                     }
                 }
 
-                // Okay, write out the totals table
-                // Here you might want to do some page break scenarios, as well:
-                // Example:
-                // Calculate how many rows you are about to print and see if they fit before the lastwriteposition, 
-                // then decide how to do; write some on first page, then the rest on second page or perhaps all the 
-                // total lines after the page break.
-                // We are not doing this here, we just write them out 80 points below the last writed item row
-
                 //top_margin -= 80;
                 //left_margin = 350;
                 // End the writing of text
@@ -407,12 +401,13 @@ namespace Politexniki_Client.PDFHandler
             catch (Exception e)
             {
                 _messageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("PdfHandling", "ExportAllCustomersInPdf",e.Message,DateTime.Now);
             }
 
             return _messageStatus;
         }
 
-        public string ExportSelectedCustomerInPDF(ObservableCollection<ModelView.CustomerModelView> listCustomer)
+        public string ExportSelectedCustomerInPdf(ObservableCollection<ModelView.CustomerModelView> listCustomer)
         {
             try
             {
@@ -535,11 +530,12 @@ namespace Politexniki_Client.PDFHandler
                 writer.Close();
                 fs.Close();
 
-                _messageStatus = "Η εξαγωγή ολοκληρώθηκε.";
+                _messageStatus = "Η εξαγωγή πελατών σε PDF ολοκληρώθηκε.";
             }
             catch (Exception e)
             {
                 _messageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("PdfHandling", "ExportSelectedCustomerInPdf", e.Message, DateTime.Now);
             }
 
             return _messageStatus;

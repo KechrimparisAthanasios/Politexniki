@@ -146,7 +146,7 @@ namespace Politexniki_Client.ModelView
 
         #region Methods
 
-        Customer customer;
+        private Customer _customer;
         private bool _isCustomerStored;
         /// <summary>
         /// Create the new customer in the Model and
@@ -157,7 +157,7 @@ namespace Politexniki_Client.ModelView
         {
             try
             {
-                customer = new Customer
+                _customer = new Customer
                 {
                     CustomerID = CustomerID,
                     FirstName = FirstName,
@@ -176,7 +176,7 @@ namespace Politexniki_Client.ModelView
                     TaxPlace = TaxPlace
                 };
 
-                _isCustomerStored =  SQLite.SQLiteHandling.Instance.StoreCustomer(customer);
+                _isCustomerStored =  SQLite.SqLiteHandling.Instance.StoreCustomer(_customer);
                 if (!_isCustomerStored)
                 {
                     MainWindowModel.Instance.MessageStatus = "Δεν ήταν δυνατή η ολοκλήρωση αποθήκευσης. Δοκίμασε ξανά.";
@@ -207,41 +207,72 @@ namespace Politexniki_Client.ModelView
             {
                 MainWindowModel.Instance.MessageStatus = e.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView","CreateCustomer()",e.Message,DateTime.Now);
             }
             return _isCustomerStored;
         }
 
         public void GetCustomers()
         {
-            CustomerObservable = SQLite.SQLiteHandling.Instance.ReturnCustomer();
+            try
+            {
+                CustomerObservable = SQLite.SqLiteHandling.Instance.ReturnCustomer();
+            }
+            catch (Exception e)
+            {
+                MainWindowModel.Instance.MessageStatus = e.Message;
+                MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "GetCustomers", e.Message, DateTime.Now);
+            }
+            
         }
 
         private ObservableCollection<CustomerModelView> _listOfCustomers;
         public void GetCustomerByIdToEdit(string customerId)
         {
-            _listOfCustomers = new ObservableCollection<CustomerModelView>();
-            _listOfCustomers = SQLite.SQLiteHandling.Instance.ReturnCustomerById(customerId);
-            CustomerObservable = _listOfCustomers;
-            CustomerEditObservable = _listOfCustomers;
-            //Clear the view collection
-            CustomerViewObservable = null;
+            try
+            {
+                _listOfCustomers = new ObservableCollection<CustomerModelView>();
+                _listOfCustomers = SQLite.SqLiteHandling.Instance.ReturnCustomerById(customerId);
+                CustomerObservable = _listOfCustomers;
+                CustomerEditObservable = _listOfCustomers;
+                //Clear the view collection
+                CustomerViewObservable = null;
+            }
+            catch (Exception e)
+            {
+                MainWindowModel.Instance.MessageStatus = e.Message;
+                MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "GetCustomerByIdToEdit", e.Message, DateTime.Now);
+            }
+            
         }
 
         public void GetCustomerByIdToView(string customerId)
         {
-            _listOfCustomers = new ObservableCollection<CustomerModelView>();
-            _listOfCustomers = SQLite.SQLiteHandling.Instance.ReturnCustomerById(customerId);
-            CustomerObservable = _listOfCustomers;
-            CustomerViewObservable = _listOfCustomers;
-            //Clear the edit Collection
-            CustomerEditObservable = null;
+            try
+            {
+                _listOfCustomers = new ObservableCollection<CustomerModelView>();
+                _listOfCustomers = SQLite.SqLiteHandling.Instance.ReturnCustomerById(customerId);
+                CustomerObservable = _listOfCustomers;
+                CustomerViewObservable = _listOfCustomers;
+                //Clear the edit Collection
+                CustomerEditObservable = null;
+            }
+            catch (Exception e)
+            {
+                MainWindowModel.Instance.MessageStatus = e.Message;
+                MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "GetCustomerByIdToView", e.Message, DateTime.Now);
+            }
+           
         }
 
         public void DeleteSelectedCustomer(string selectedCustomerId)
         {
             try
             {
-                string status = SQLite.SQLiteHandling.Instance.DeleteSelectedCustomer(selectedCustomerId);
+                string status = SQLite.SqLiteHandling.Instance.DeleteSelectedCustomer(selectedCustomerId);
                 MainWindowModel.Instance.IsSuccessVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = status;
             }
@@ -249,53 +280,65 @@ namespace Politexniki_Client.ModelView
             {
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
                 MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "DeleteSelectedCustomer()", e.Message, DateTime.Now);
             }
         }
 
         public void EditCustomer(string customerId)
         {
-            customer = new Customer();
+            _customer = new Customer();
             try
             {
                 var editedCustomer = CustomerEditObservable.Where(x => x.CustomerID == customerId).ToList();
                 foreach (var editedCust in editedCustomer)
                 {
-                    customer.CustomerID = editedCust.CustomerID;
-                    customer.FirstName = editedCust.FirstName;
-                    customer.LastName = editedCust.LastName;
-                    customer.FatherFullName = editedCust.FatherFullName;
-                    customer.MotherFullName = editedCust.MotherFullName;
-                    customer.Birthday = editedCust.Birthday;
-                    customer.PlaceOfBirth = editedCust.PlaceOfBirth;
-                    customer.Telephone = editedCust.Telephone;
-                    customer.Id = editedCust.Id;
-                    customer.ResidencePlace = editedCust.ResidencePlace;
-                    customer.Address = editedCust.Address;
-                    customer.Number = editedCust.Number;
-                    customer.PostCode = editedCust.PostCode;
-                    customer.SocialNumber = editedCust.SocialNumber;
-                    customer.TaxPlace = editedCust.TaxPlace;
-                    MainWindowModel.Instance.MessageStatus = SQLite.SQLiteHandling.Instance.UpdateCustomer(customer);
+                    _customer.CustomerID = editedCust.CustomerID;
+                    _customer.FirstName = editedCust.FirstName;
+                    _customer.LastName = editedCust.LastName;
+                    _customer.FatherFullName = editedCust.FatherFullName;
+                    _customer.MotherFullName = editedCust.MotherFullName;
+                    _customer.Birthday = editedCust.Birthday;
+                    _customer.PlaceOfBirth = editedCust.PlaceOfBirth;
+                    _customer.Telephone = editedCust.Telephone;
+                    _customer.Id = editedCust.Id;
+                    _customer.ResidencePlace = editedCust.ResidencePlace;
+                    _customer.Address = editedCust.Address;
+                    _customer.Number = editedCust.Number;
+                    _customer.PostCode = editedCust.PostCode;
+                    _customer.SocialNumber = editedCust.SocialNumber;
+                    _customer.TaxPlace = editedCust.TaxPlace;
+                    MainWindowModel.Instance.MessageStatus = SQLite.SqLiteHandling.Instance.UpdateCustomer(_customer);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "EditCustomer()", e.Message, DateTime.Now);
             }
         }
 
-        public void ExportAllCustomersPDF()
+        public void ExportAllCustomersPdf()
         {
 
         }
 
-        public void ExportSelectedCustomerPDF(string customerId)
+        public void ExportSelectedCustomerPdf(string customerId)
         {
-            _listOfCustomers = new ObservableCollection<CustomerModelView>();
-            _listOfCustomers = SQLite.SQLiteHandling.Instance.ReturnCustomerById(customerId);
-            PDFHandler.PdfHandling pDFHandler = new Politexniki_Client.PDFHandler.PdfHandling();
-            pDFHandler.ExportSelectedCustomerInPDF(_listOfCustomers);
+            try
+            {
+                _listOfCustomers = new ObservableCollection<CustomerModelView>();
+                _listOfCustomers = SQLite.SqLiteHandling.Instance.ReturnCustomerById(customerId);
+                PDFHandler.PdfHandling pDfHandler = new Politexniki_Client.PDFHandler.PdfHandling();
+                MainWindowModel.Instance.MessageStatus = pDfHandler.ExportSelectedCustomerInPdf(_listOfCustomers);
+            }
+            catch (Exception e)
+            {
+                MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                MainWindowModel.Instance.MessageStatus = e.Message;
+                Log_Handler.LogHandling.Instance.StoreLog("CustomerModelView", "ExportSelectedCustomerPdf()", e.Message, DateTime.Now);
+            }
+           
         }
 
         #endregion

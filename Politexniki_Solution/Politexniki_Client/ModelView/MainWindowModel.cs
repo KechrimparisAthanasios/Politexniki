@@ -18,7 +18,7 @@ namespace Politexniki_Client.ModelView
 
         private MainWindowModel()
         {
-            SQLite.SQLiteHandling.Instance.InitSQLite();
+            SQLite.SqLiteHandling.Instance.InitSqLite();
             InitUnderline();
         }
 
@@ -179,14 +179,13 @@ namespace Politexniki_Client.ModelView
         #endregion
 
         #region INotify Event
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         #endregion
     }
 }

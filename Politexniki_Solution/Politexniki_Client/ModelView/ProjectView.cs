@@ -99,18 +99,18 @@ namespace Politexniki_Client.ModelView
                     ListOfProjectOwners = ListOfProjectOwnersObservable
                 };
 
-                SQLite.SQLiteHandling.Instance.CreateSqLiteDbProject(ProjectName);
-                SQLite.SQLiteHandling.Instance.CreateProjectTable(project);
+                SQLite.SqLiteHandling.Instance.CreateSqLiteDbProject(ProjectName);
+                SQLite.SqLiteHandling.Instance.CreateProjectTable(project);
             }
             catch (Exception w)
             {
                 MainWindowModel.Instance.MessageStatus = w.Message;
                 MainWindowModel.Instance.IsFailVisible = Visibility.Visible;
+                Log_Handler.LogHandling.Instance.StoreLog("ProjectView", "CreateProject",w.Message,DateTime.Now);
             }
         }
 
         #endregion
-
 
         #region INotifyEvent
 
